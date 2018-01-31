@@ -22,6 +22,7 @@ public class ContentActivity extends AppCompatActivity {
     private DanMuListViewAdapter mDanMuAdapter;
     private TextView mTestTxt;
     private ArrayList<DanMuBean> mList;
+    private int[] rawId = {R.raw.a3910708, R.raw.a4767147, R.raw.a8553542};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +40,12 @@ public class ContentActivity extends AppCompatActivity {
 //        fileName = "30540135";
 
         //1，通过解析本地文件的方式得到所有弹幕
-//        list = LocalFile.getData(getResources().openRawResource(R.raw.a3232417),null);
+        mList = LocalFile.getData(getResources().openRawResource(rawId[0]),null);
 
         //2，通过解析远程服务器文件的方式得到所有弹幕
         String url = "https://chat.bilibili.com/" + fileName + ".xml";
 //        list = RemoteFile.getData(url);
-        RemoteFile.downAsynFile(fileName, url);
+//        RemoteFile.downAsynFile(fileName, url);
         mDanMuAdapter = new DanMuListViewAdapter(this, mList);
         LocalFile.setOnDataChangelListener(new RemoteFile.onDataChangelListener() {
             @Override

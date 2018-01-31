@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AnalysisXmlDemo.iml" filepath="$PROJECT_DIR$/AnalysisXmlDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AnalysisBStationDanMuXml.iml" filepath="$PROJECT_DIR$/AnalysisBStationDanMuXml.iml" />
+      <module fileurl="file://E:\study\github\AnalysisBStationDanMuXml\AnalysisXmlDemo.iml" filepath="E:\study\github\AnalysisBStationDanMuXml\AnalysisXmlDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\study\github\AnalysisBStationDanMuXml\app\app.iml" filepath="E:\study\github\AnalysisBStationDanMuXml\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -1,5 +1,6 @@
 package com.example.analysisxmldemo;
 
+import android.os.Environment;
 import android.util.Log;
 
 import org.jsoup.Jsoup;
@@ -9,6 +10,8 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -47,14 +50,37 @@ public class LocalFile {
                 bean.videoTime = videoTime;
                 bean.sendDate = sendDate;
                 list.add(bean);
+                storageFile("3910708", bean);
                 Log.d("cjf", "videoTime" + videoTime + ", context:"
                         + content.text() + ", sendDate:" + sendDate);
             }
-            mDataChangelListener.onDataChanged(list);
+//            mDataChangelListener.onDataChanged(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    private static void storageFile(String name, DanMuBean bean) {
+        File file = new File("/storage/emulated/0/ShareDir", name + ".txt");
+        FileOutputStream fileOutputStream = null;
+        InputStream inputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(file, true);
+//            inputStream = new FileInputStream(bean.toString());
+//            byte[] buffer = new byte[2048];
+//            int len = 0;
+//            while ((len = inputStream.read(buffer)) != -1) {
+//                fileOutputStream.write(buffer, 0, len);
+//            }
+            fileOutputStream.write(bean.toString().getBytes());
+            fileOutputStream.write("\r\n".getBytes());//换行
+            fileOutputStream.flush();
+        } catch (IOException e) {
+            Log.i("cjf", "IOException");
+            e.printStackTrace();
+        }
+        Log.d("cjf", "文件保存成功！");
     }
 
     public static void setOnDataChangelListener(RemoteFile.onDataChangelListener listener) {
