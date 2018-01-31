@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
@@ -24,7 +25,7 @@ public class LocalFile {
 
     public static ArrayList<DanMuBean> getData(InputStream input, String str){
         Log.d("cjf", "LocalFile getData, input:" + input + ", str:" + input);
-        ArrayList<DanMuBean> list = new ArrayList<DanMuBean>();
+        final ArrayList<DanMuBean> list = new ArrayList<DanMuBean>();
         String videoTime = null;
         String sendDate = null;
         try{
@@ -50,10 +51,16 @@ public class LocalFile {
                 bean.videoTime = videoTime;
                 bean.sendDate = sendDate;
                 list.add(bean);
-                storageFile("3910708", bean);
                 Log.d("cjf", "videoTime" + videoTime + ", context:"
                         + content.text() + ", sendDate:" + sendDate);
             }
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    storageFile("8553542", list);
+                }
+            }.start();
 //            mDataChangelListener.onDataChanged(list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,20 +68,28 @@ public class LocalFile {
         return list;
     }
 
-    private static void storageFile(String name, DanMuBean bean) {
-        File file = new File("/storage/emulated/0/ShareDir", name + ".txt");
+    private static void storageFile(String name, ArrayList<DanMuBean> list) {
+        File file = new File("/storage/emulated/0/", name + ".txt");
         FileOutputStream fileOutputStream = null;
+        OutputStreamWriter outputStreamWriter = null;
         InputStream inputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file, true);
+            outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
 //            inputStream = new FileInputStream(bean.toString());
 //            byte[] buffer = new byte[2048];
 //            int len = 0;
 //            while ((len = inputStream.read(buffer)) != -1) {
 //                fileOutputStream.write(buffer, 0, len);
 //            }
-            fileOutputStream.write(bean.toString().getBytes());
-            fileOutputStream.write("\r\n".getBytes());//换行
+//            fileOutputStream.write(bean.toString().getBytes());
+//            fileOutputStream.write("\r\n".getBytes());//换行
+            outputStreamWriter.write("时间   |   发送时间    |   弹幕内容");
+            outputStreamWriter.write("\r\n");
+            for (DanMuBean bean : list) {
+                outputStreamWriter.write(bean.toString());
+                outputStreamWriter.write("\r\n");
+            }
             fileOutputStream.flush();
         } catch (IOException e) {
             Log.i("cjf", "IOException");

@@ -40,7 +40,7 @@ public class ContentActivity extends AppCompatActivity {
 //        fileName = "30540135";
 
         //1，通过解析本地文件的方式得到所有弹幕
-        mList = LocalFile.getData(getResources().openRawResource(rawId[0]),null);
+        mList = LocalFile.getData(getResources().openRawResource(rawId[2]),null);
 
         //2，通过解析远程服务器文件的方式得到所有弹幕
         String url = "https://chat.bilibili.com/" + fileName + ".xml";
