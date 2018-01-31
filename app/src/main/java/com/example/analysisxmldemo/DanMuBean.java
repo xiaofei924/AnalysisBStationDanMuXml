@@ -1,5 +1,6 @@
 package com.example.analysisxmldemo;
 
+import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 
 /**
@@ -10,4 +11,13 @@ public class DanMuBean {
     String videoTime;
     String content;
     String sendDate;
+
+    public String toString() {
+        try {
+            return new String((videoTime + " | " + sendDate + " | " + content).getBytes(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

@@ -60,7 +60,7 @@ public class RemoteFile {
                     } else {
                         try {
                             byte[] bytes = response.body().bytes();
-                            bodyContent = new String(bytes, "GB2312");
+                            bodyContent = new String(bytes, "UTF-8");
                             inputStream = new ByteArrayInputStream(bodyContent.getBytes());
 //                        mDanMuBeanList = LocalFile.getData(null, content);
 
